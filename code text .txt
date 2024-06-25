@@ -1,0 +1,62 @@
+import json
+
+# Function to load issues from a JSON file
+def load_issue_types():
+    with open('issues.json', 'r') as file:
+        return json.load(file)
+
+# Function to create a ticket
+def create_ticket(ticket_id, issue_type):
+    description = input("Enter the description of the issue: ")
+    tickets[ticket_id] = {'issue_type': issue_type, 'description': description}
+    print("Ticket created successfully with ID:", ticket_id)
+
+# Function to display all tickets
+def display_tickets():
+    if tickets:
+        for id, info in tickets.items():
+            print(f"Ticket ID: {id}, Issue Type: {info['issue_type']}, Description: {info['description']}")
+    else:
+        print("No tickets to display.")
+
+# Main menu for the ticketing system
+def main_menu():
+    issue_types = load_issue_types()
+    while True:
+        print("\n1. Create Ticket")
+        print("2. View Tickets")
+        print("3. Exit")
+        choice = input("Enter your choice: ")
+        
+        if choice == '1':
+            print("Select Issue Category:")
+            for idx, category in enumerate(issue_types, 1):
+                print(f"{idx}. {category}")
+            category_choice = int(input("Choose a category (number): ")) - 1
+            category_name = list(issue_types.keys())[category_choice]
+            print("Select Issue Type:")
+            for idx, issue in enumerate(issue_types[category_name], 1):
+                print(f"{idx}. {issue}")
+            issue_choice = int(input("Choose an issue type (number): ")) - 1
+            issue_name = issue_types[category_name][issue_choice]
+            ticket_id = max(tickets.keys(), default=0) + 1
+            create_ticket(ticket_id, issue_name)
+
+        elif choice == '2':
+            display_tickets()
+
+        elif choice == '3':
+            print("Exiting...")
+            break
+        else:
+            print("Invalid option, please try again.")
+
+# Dictionary to hold the tickets
+tickets = {}
+
+# Run the application
+if __name__ == "__main__":
+    main_menu()
+
+
+

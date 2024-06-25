@@ -1,0 +1,5 @@
+{
+    "Networking": ["Internet Downtime", "Router Configuration"],
+    "Software": ["Operating System Crash", "Application Bug"],
+    "Hardware": ["Printer Malfunction", "PC Not Starting"]
+}
